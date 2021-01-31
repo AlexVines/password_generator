@@ -8,28 +8,37 @@ root.geometry('350x400')
 
 input_frame = Frame(root, padx=10, pady=10)
 input_frame.pack()
+output_frame = Frame(root, padx=10, pady=10)
+output_frame.pack()
 
 
 def func():
+    for widget in output_frame.winfo_children():
+        widget.destroy()
     ready = False
-    password = ''
+    password = None
+    result = Label(input_frame)
     while not ready:
         length = int(pass_len.get())
         alphabet = ''
-
-        # Create alphabet
+        result.destroy()
+        # Create alphabet and password
         for n, option in enumerate(options):
             if options[option_labels[n]][0].get():
                 alphabet = alphabet + options[option_labels[n]][1]
-        password = ''.join(secrets.choice(alphabet) for _ in range(length))
-
+        try:
+            password = ''.join(secrets.choice(alphabet) for _ in range(length))
+        except IndexError:
+            result = Label(output_frame, text="Pick at least one option").grid(row=0, column=0, sticky='w',
+                                                                               pady=10, ipadx=5)
+        
+        ready = True
         # Check if all conditions are provided
-        conditions_count = 0
         for n, option in enumerate(options):
-            if check(options[option_labels[n]][0].get(), options[option_labels[n]][1], password):
-                ready = True
-
-    print(password)
+            if not check(options[option_labels[n]][0].get(), options[option_labels[n]][1], password):
+                ready = False
+    if password:
+        Label(output_frame, text="Your password is: {}".format(password)).grid(row=10, column=0, sticky='w', pady=10, ipadx=5)
 
 
 def check(condition, content, result):
@@ -37,13 +46,13 @@ def check(condition, content, result):
         for k in content:
             if k in result:
                 return True
+    else:
+        return True
     return False
 
 
-labels = ['Password length', 'Include symbols', 'Include numbers', 'Include lowercase chars', 'Include uppercase chars',
-          'Don\'t repeat symbols']
-option_labels = ['(e.g. @#$%)', '(e.g. 123456789)', 'e.g. abcdef..', 'e.g. ABCDEF..',
-                 'Do not include similar symbols']
+labels = ['Password length', 'Include symbols', 'Include numbers', 'Include lowercase chars', 'Include uppercase chars']
+option_labels = ['(e.g. @#$%)', '(e.g. 123456789)', 'e.g. abcdef..', 'e.g. ABCDEF..']
 option_content = ['!@#$%^&*|~', string.digits, string.ascii_lowercase, string.ascii_uppercase, '']
 
 options = {}
