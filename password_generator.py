@@ -8,7 +8,7 @@ from datetime import datetime
 root = Tk()
 root.title('Password generator')
 root.geometry('350x450')
-root.iconbitmap('p_app.ico')
+root.iconbitmap('Pictures/p_app.ico')
 
 input_frame = Frame(root, padx=10, pady=10)
 input_frame.pack()
