@@ -67,7 +67,7 @@ def func():
     if password:
         Label(output_frame, text="Your password is: {}".format(password)).grid(row=0, column=0, sticky='w', pady=10,
                                                                                ipadx=5, columnspan=2)
-        Label(output_frame, text='Description').grid(row=1, column=0)
+        Label(output_frame, text='Login').grid(row=1, column=0)
         Label(output_frame, text='Link').grid(row=1, column=1)
 
         # website = Entry(output_frame)
