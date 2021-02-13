@@ -22,9 +22,9 @@ def save():
     cur = conn.cursor()
     # cur.execute('''
     # CREATE TABLE passwords (
-    #     description VARCHAR(50) NOT NULL,
-    #     link VARCHAR(300),
-    #     password VARCHAR(30) NOT NULL,
+    #     Login VARCHAR(50) NOT NULL,
+    #     Link VARCHAR(300),
+    #     Password VARCHAR(30) NOT NULL,
     #     last_update TIMESTAMP NOT NULL,
     # UNIQUE (description)
     # );
